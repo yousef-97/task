@@ -47,13 +47,26 @@ export default (state = initialState, action) => {
             state.users.push({ ...payload, friends: [], posts: [] });
             return { ...state, signedInUser: { ...payload, friends: [], posts: [] }, signedIn: true }
         case 'POSTING':
-            let userWithNewPost = state.users.filter(user=>{
-                if(user.username.toUpperCase() === state.signedInUser.username.toUpperCase()){
+            let userWithNewPost = state.users.filter(user => {
+                if (user.username.toUpperCase() === state.signedInUser.username.toUpperCase()) {
                     user.posts.unshift(payload);
                     return user;
-                }else{return false}
+                } else { return false }
             })
-            return {...state, signedInUser:userWithNewPost[0]}
+            return { ...state, signedInUser: userWithNewPost[0] }
+
+        case 'ADDFRIEND':
+            let theUserWithNewFriend = state.users.filter(user => {
+                if (user.username.toUpperCase() === state.signedInUser.username.toUpperCase()) {
+                    if (user.friends.includes(payload)) {
+                        let theIndexOfExistingFriend = user.friends.indexOf(payload);
+                        user.friends.splice(theIndexOfExistingFriend, theIndexOfExistingFriend + 1);
+                    } else { user.friends.push(payload) }
+                    return user;
+                } else { return false }
+            })
+
+            return { ...state, signedInUser: theUserWithNewFriend[0] }
         default:
             return state;
 
@@ -88,5 +101,11 @@ export const addPostAction = (post) => {
     return {
         type: 'POSTING',
         payload: post,
+    }
+}
+export const addFriendAction = (newFried) => {
+    return {
+        type: 'ADDFRIEND',
+        payload: newFried,
     }
 }

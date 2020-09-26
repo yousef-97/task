@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getTheUsersAction, addPostAction } from '../store/reducers';
+import { getTheUsersAction, addPostAction, addFriendAction} from '../store/reducers';
 
 function Posting(props) {
     const [thePost, setThePost] = useState('');
@@ -12,6 +12,7 @@ function Posting(props) {
         props.addPost(thePost)
         e.target.reset();
     }
+    
     return (
         <>
             <form onSubmit={postingFunction}>
@@ -27,10 +28,10 @@ function Posting(props) {
             )}
 
             {props.data.users.map(user =>
-                <div key={user.username}>
+                <div key={user.username} onClick={()=>props.addFriend(user.username)}>
                     {/* <h4>{user.username}</h4> */}
                     {user.username !== props.data.signedInUser.username ?
-                        <h4 >{user.username} is {props.data.signedInUser.friends.includes(user.username) ? `Your friend` : `Not your friend`}</h4>
+                        <h4>{user.username} is {props.data.signedInUser.friends.includes(user.username) ? `Your friend` : `Not your friend`}</h4>
                         : null}
                 </div>
             )}
@@ -45,6 +46,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     getUsers: () => dispatch(getTheUsersAction()),
-    addPost:(thePost)=>dispatch(addPostAction(thePost))
+    addPost:(thePost)=>dispatch(addPostAction(thePost)),
+    addFriend:(newFriend)=>dispatch(addFriendAction(newFriend))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Posting);
