@@ -4,7 +4,9 @@ export default function Posting(props){
     return (
         <>
             <form>
-                <textarea placeholder='share your thoughts'></textarea>
+                <br/>
+                <h3>share your thoughts</h3>
+                <textarea placeholder='share your thoughts'></textarea><br/>
                 <button>POST</button>
             </form>
         </>

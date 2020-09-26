@@ -9,7 +9,7 @@ function App() {
    <>
     <LogIn/>
     <Registration/>
-    
+    <Posting/>
    </>
   );
 }
