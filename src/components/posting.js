@@ -1,21 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getTheUsersAction } from '../store/reducers';
+import { getTheUsersAction, addPostAction } from '../store/reducers';
 
 function Posting(props) {
-    // console.log('data in posting component' ,props.data.users)
-    // useEffect(() => {
-    //     // console.log('get users');
-    //     props.getUsers();
-    // }, [])
+    const [thePost, setThePost] = useState('');
+    const changeInput = (e) => {
+        setThePost( e.target.value )
+    }
+    const postingFunction = (e) => {
+        e.preventDefault();
+        props.addPost(thePost)
+        e.target.reset();
+    }
     return (
         <>
-            <form>
+            <form onSubmit={postingFunction}>
                 <br />
                 <h3>share your thoughts</h3>
-                <textarea placeholder='share your thoughts'></textarea><br />
+                <textarea placeholder='share your thoughts' name='post' onChange={changeInput}></textarea><br />
                 <button>POST</button>
             </form>
+            {props.data.signedInUser.posts.map(onePost =>
+                <div key={Math.random()}>
+                   <p>{onePost}</p>
+                </div>
+            )}
 
             {props.data.users.map(user =>
                 <div key={user.username}>
@@ -29,13 +38,13 @@ function Posting(props) {
     );
 }
 const mapStateToProps = (state) => {
-    // console.log('state',state)
     return {
         data: state,
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getUsers: () => dispatch(getTheUsersAction())
+    getUsers: () => dispatch(getTheUsersAction()),
+    addPost:(thePost)=>dispatch(addPostAction(thePost))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Posting);

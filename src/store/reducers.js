@@ -44,9 +44,16 @@ export default (state = initialState, action) => {
             });
             return checkingUser.length ? { ...state, signedInUser: checkingUser[0], signedIn: true } : state;
         case 'REGISTER':
-            // console.log(state, 'state in reducer')
             state.users.push({ ...payload, friends: [], posts: [] });
             return { ...state, signedInUser: { ...payload, friends: [], posts: [] }, signedIn: true }
+        case 'POSTING':
+            let userWithNewPost = state.users.filter(user=>{
+                if(user.username.toUpperCase() === state.signedInUser.username.toUpperCase()){
+                    user.posts.unshift(payload);
+                    return user;
+                }else{return false}
+            })
+            return {...state, signedInUser:userWithNewPost[0]}
         default:
             return state;
 
@@ -75,5 +82,11 @@ export const loginAction = (theUser) => {
     return {
         type: 'LOGIN',
         payload: theUser,
+    }
+}
+export const addPostAction = (post) => {
+    return {
+        type: 'POSTING',
+        payload: post,
     }
 }
