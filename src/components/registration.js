@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getTheUsersAction, registerNewUserAction } from '../store/reducers';
+import {registerNewUserAction } from '../store/reducers';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 // import './style.scss'
@@ -10,7 +10,6 @@ function Registration(props) {
 
     const changeInput = (e) => {
         setTheUser({ ...theUser, [e.target.name]: e.target.value })
-        // console.log(theUser)
     }
     const registerFunction = (e) => {
         e.preventDefault();
@@ -41,14 +40,12 @@ function Registration(props) {
     );
 }
 const mapStateToProps = (state) => {
-    // console.log('state',state)
     return {
         data: state,
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getUsers: () => dispatch(getTheUsersAction()),
     register: (newUser) => dispatch(registerNewUserAction(newUser))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Registration);

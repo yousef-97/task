@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getTheUsersAction, loginAction } from '../store/reducers';
+import {loginAction } from '../store/reducers';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 // import './style.scss'
@@ -47,7 +47,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getUsers: () => dispatch(getTheUsersAction()),
     login: (userInput) => dispatch(loginAction(userInput))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
