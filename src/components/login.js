@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import {getTheUsersAction, loginAction} from '../store/reducers';
+import { getTheUsersAction, loginAction } from '../store/reducers';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+// import './style.scss'
 
-function LogIn(props){
+function LogIn(props) {
     const [theUserForLogIn, setTheUserForLogIn] = useState({ username: '', password: '' });
 
     const changeInput = (e) => {
         setTheUserForLogIn({ ...theUserForLogIn, [e.target.name]: e.target.value })
-        
+
     }
     const LogInFunction = (e) => {
         e.preventDefault();
@@ -17,28 +20,34 @@ function LogIn(props){
     return (
         <>
             <h3>Log in</h3>
-            <form onSubmit={LogInFunction}>
-                <label>
-                    Username<br/>
-                    <input type='text' name='username' placeholder='username' onChange={changeInput} />
-                </label><br/>
-                <label>
-                    Password<br/>
-                    <input type='password' name='password' placeholder='password' onChange={changeInput}/>
-                </label><br/>
-                <button>LOG IN</button>
-            </form>
+            <Form onSubmit={LogInFunction} className='form'>
+                <Form.Group controlId="formBasicEmail">
+
+                    <Form.Label>
+                        Username
+                    </Form.Label>
+                    <Form.Control type='text' name='username' placeholder='username' onChange={changeInput} />
+                </Form.Group>
+                <Form.Group controlId="formBasicEmail">
+
+                    <Form.Label>
+                        Password
+                    </Form.Label>
+                    <Form.Control type='password' name='password' placeholder='password' onChange={changeInput} />
+                </Form.Group>
+                <Button variant="primary" type="submit">LOG IN</Button>
+            </Form>
         </>
     );
 }
 const mapStateToProps = (state) => {
     return {
-      data:state,
+        data: state,
     };
-  };
-  
-  const mapDispatchToProps =(dispatch)=> ({
-    getUsers:()=>dispatch(getTheUsersAction()),
-    login:(userInput)=>dispatch(loginAction(userInput))
-  });
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    getUsers: () => dispatch(getTheUsersAction()),
+    login: (userInput) => dispatch(loginAction(userInput))
+});
 export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

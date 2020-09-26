@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {getTheUsersAction, registerNewUserAction, logoutAction} from '../store/reducers';
+import Button from 'react-bootstrap/Button';
+
 
 function LogOut(props){
     return (
         <>
-            <button onClick={props.logout}>Log out</button>
+            <Button onClick={props.logout}>Log out</Button>
         </>
     );
 }
