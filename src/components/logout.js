@@ -1,10 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {getTheUsersAction, registerNewUserAction, logoutAction} from '../store/reducers';
 
-
-export default function LogOut(props){
+function LogOut(props){
     return (
         <>
-            <button onClick={}>Log out</button>
+            <button onClick={props.logout}>Log out</button>
         </>
     );
 }
+const mapStateToProps = (state) => {
+    // console.log('state',state)
+    return {
+      data:state,
+    };
+  };
+  
+  const mapDispatchToProps =(dispatch)=> ({
+    getUsers:()=>dispatch(getTheUsersAction()),
+    register:(newUser)=>dispatch(registerNewUserAction(newUser)),
+    logout:()=>dispatch(logoutAction())
+  });
+export default connect(mapStateToProps, mapDispatchToProps)(LogOut);
+

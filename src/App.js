@@ -5,7 +5,9 @@ import './App.css';
 import LogIn from './components/login';
 import Registration from './components/registration'
 import Posting from './components/posting';
-import Show from './components/show'
+import Show from './components/show';
+import LogOut from './components/logout';
+
 
 function App(props) {
   return (
@@ -16,6 +18,7 @@ function App(props) {
       </Show>
       <Show condition={props.data.signedIn}>
         <Posting />
+        <LogOut/>
       </Show>
     </>
   );
