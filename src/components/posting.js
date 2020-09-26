@@ -1,40 +1,50 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getTheUsersAction, addPostAction, addFriendAction} from '../store/reducers';
+import { addPostAction, addFriendAction } from '../store/reducers';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 function Posting(props) {
     const [thePost, setThePost] = useState('');
     const changeInput = (e) => {
-        setThePost( e.target.value )
+        setThePost(e.target.value)
     }
     const postingFunction = (e) => {
         e.preventDefault();
         props.addPost(thePost)
         e.target.reset();
     }
-    
+
     return (
         <>
-            <form onSubmit={postingFunction}>
-                <br />
-                <h3>share your thoughts</h3>
-                <textarea placeholder='share your thoughts' name='post' onChange={changeInput}></textarea><br />
-                <button>POST</button>
-            </form>
-            {props.data.signedInUser.posts.map(onePost =>
-                <div key={Math.random()}>
-                   <p>{onePost}</p>
-                </div>
-            )}
+            <Form onSubmit={postingFunction}>
+                <Form.Group>
+                    <h3>share your thoughts</h3>
+                    <Form.Control as="textarea" rows="3" placeholder='share your thoughts' name='post' onChange={changeInput} />
+                </Form.Group>
+                    <Button variant="primary" type="submit">POST</Button>
+            </Form>
+            <ListGroup>
+                <h4 className='add'>My Posts</h4>
+                {props.data.signedInUser.posts.map(onePost =>
+                    <ListGroup.Item key={Math.random()}>
+                        <p>{onePost}</p>
+                    </ListGroup.Item>
+                )}
+            </ListGroup>
 
-            {props.data.users.map(user =>
-                <div key={user.username} onClick={()=>props.addFriend(user.username)}>
-                    {/* <h4>{user.username}</h4> */}
-                    {user.username !== props.data.signedInUser.username ?
-                        <h4>{user.username} is {props.data.signedInUser.friends.includes(user.username) ? `Your friend` : `Not your friend`}</h4>
-                        : null}
-                </div>
-            )}
+            <ListGroup>
+                <h4 className='add'>Add Or Remove Friends</h4>
+                {props.data.users.map(user =>
+                    <ListGroup.Item key={Math.random()} onClick={() => props.addFriend(user.username)} className='people'>
+                        {user.username !== props.data.signedInUser.username ?
+                            <h4>{user.username} {props.data.signedInUser.friends.includes(user.username) ? <span> Click To Add To Friends List</span> : <span>Click To Remove From Friends List</span>}</h4>
+                            : null}
+
+                    </ListGroup.Item>
+                )}
+            </ListGroup>
         </>
     );
 }
@@ -45,8 +55,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getUsers: () => dispatch(getTheUsersAction()),
-    addPost:(thePost)=>dispatch(addPostAction(thePost)),
-    addFriend:(newFriend)=>dispatch(addFriendAction(newFriend))
+    addPost: (thePost) => dispatch(addPostAction(thePost)),
+    addFriend: (newFriend) => dispatch(addFriendAction(newFriend))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Posting);
