@@ -1,7 +1,7 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers} from 'redux';
 import niceReducer from './reducers'
 
-// const rootReducer = combineReducers();
+const rootReducer = combineReducers({niceReducer});
 
 const store = () => {
   return createStore(niceReducer)
