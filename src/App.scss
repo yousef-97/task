@@ -22,6 +22,9 @@
     position: absolute;
     left: 0;
 }
+.zind{
+    z-index: 1000;
+}
 main {
     display: flex;
     justify-content: space-evenly;

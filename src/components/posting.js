@@ -39,10 +39,10 @@ function Posting(props) {
                 <h4 className='add'>My Friends</h4>
                 <h4 className='notFriendsList'>People You Can Add To Friends List</h4>
                 {props.data.users.map(user =>
-                    <ListGroup.Item key={Math.random()} onClick={() => props.addFriend(user.username)} className='people'>
+                    <ListGroup.Item key={Math.random()} className='people'>
                         {user.username !== props.data.signedInUser.username && props.data.signedInUser.friends.includes(user.username) ?
-                            <h5>{user.username}</h5>
-                            :<h5 className='notFriends'>{user.username !== props.data.signedInUser.username?user.username:null} </h5> }
+                            <h5>{user.username}<button className='zind' onClick={() => props.addFriend(user.username)}>X</button></h5>
+                            :user.username !== props.data.signedInUser.username?<h5 className='notFriends'>{user.username}<button className='zind' onClick={() => props.addFriend(user.username)}>send request</button></h5>:null }
 
                     </ListGroup.Item>
                 )}
