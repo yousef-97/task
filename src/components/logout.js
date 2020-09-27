@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 function LogOut(props){
     return (
         <>
-            <Button onClick={props.logout}>Log out</Button>
+            <Button onClick={props.logout} className='logout'>Log out</Button>
         </>
     );
 }

@@ -14,6 +14,7 @@ function Posting(props) {
         e.preventDefault();
         props.addPost(thePost)
         e.target.reset();
+        setThePost('');
     }
 
     return (
@@ -21,7 +22,7 @@ function Posting(props) {
             <Form onSubmit={postingFunction}>
                 <Form.Group>
                     <h3>share your thoughts</h3>
-                    <Form.Control as="textarea" rows="3" placeholder='share your thoughts' name='post' onChange={changeInput} />
+                    <Form.Control as="textarea" rows="3" placeholder='share your thoughts' name='post' onChange={changeInput} required />
                 </Form.Group>
                     <Button variant="primary" type="submit">POST</Button>
             </Form>
@@ -34,13 +35,14 @@ function Posting(props) {
                 )}
             </ListGroup>
 
-            <ListGroup>
-                <h4 className='add'>Add Or Remove Friends</h4>
+            <ListGroup className='peoplelist'>
+                <h4 className='add'>My Friends</h4>
+                <h4 className='notFriendsList'>People You Can Add To Friends List</h4>
                 {props.data.users.map(user =>
                     <ListGroup.Item key={Math.random()} onClick={() => props.addFriend(user.username)} className='people'>
-                        {user.username !== props.data.signedInUser.username ?
-                            <h4>{user.username} {props.data.signedInUser.friends.includes(user.username) ? <span> Click To Add To Friends List</span> : <span>Click To Remove From Friends List</span>}</h4>
-                            : null}
+                        {user.username !== props.data.signedInUser.username && props.data.signedInUser.friends.includes(user.username) ?
+                            <h5>{user.username}</h5>
+                            :<h5 className='notFriends'>{user.username !== props.data.signedInUser.username?user.username:null} </h5> }
 
                     </ListGroup.Item>
                 )}
