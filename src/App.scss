@@ -5,3 +5,41 @@
 .people{
     cursor: pointer;
 }
+.notFriendsList {
+    float: right;
+    position: absolute;
+    right: 0;
+    top: 29px;
+    z-index: 100;
+}
+.notFriends {
+    float: right;
+    z-index: 100;
+}
+.peoplelist.list-group {
+    /* display: flex; */
+    width: 100%;
+    position: absolute;
+    left: 0;
+}
+.inside{
+    margin-left: 10px;
+}
+main {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10%;
+    .form {
+        display: flex;
+        flex-direction: column;
+        width: 35%;
+        justify-content: center;
+        text-align: center;
+    }
+    .post .logout {
+        position: absolute;
+        top: 7%;
+        right: 1%;
+        padding: 1% 5%;
+    }
+}

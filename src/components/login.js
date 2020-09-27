@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import {loginAction } from '../store/reducers';
+import { loginAction } from '../store/reducers';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 // import './style.scss'
@@ -19,8 +19,8 @@ function LogIn(props) {
     }
     return (
         <>
-            <h3>Log in</h3>
             <Form onSubmit={LogInFunction} className='form'>
+                <h3>Log in</h3>
                 <Form.Group controlId="formBasicEmail">
 
                     <Form.Label>

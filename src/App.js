@@ -10,14 +10,18 @@ import './App.scss'
 function App(props) {
   return (
     <>
-      <Show condition={!props.data.signedIn}>
-        <LogIn />
-        <Registration />
-      </Show>
-      <Show condition={props.data.signedIn}>
-        <Posting />
-        <LogOut/>
-      </Show>
+      <main>
+        <Show condition={!props.data.signedIn}>
+          <LogIn />
+          <Registration />
+        </Show>
+        <Show condition={props.data.signedIn}>
+          <div className='post'>
+            <LogOut />
+            <Posting />
+          </div>
+        </Show>
+      </main>
     </>
   );
 }
