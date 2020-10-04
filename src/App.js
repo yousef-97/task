@@ -8,6 +8,9 @@ import LogOut from './components/logout';
 import './App.scss'
 
 function App(props) {
+
+  
+  console.log('hey');
   return (
     <>
       <main>
